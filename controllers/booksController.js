@@ -22,7 +22,7 @@ const newBook = (req, res, next) => {
       .from("books")
       .insert(body)
       .returning("*")
-      .then(newBook => res.json({ newBook : newBook }));
+      .then(newBook => res.json({ newBook : newBook[0] }));
   }
 };
 
@@ -34,7 +34,7 @@ const deleteBook = (req, res, next) => {
     .where("id", id)
     .delete()
     .returning("*")
-    .then(deletedBook => res.json({ deletedBook : deletedBook}))
+    .then(deletedBook => res.json({ deletedBook : deletedBook[0]}))
 
 }
 
