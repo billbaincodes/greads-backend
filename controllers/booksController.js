@@ -7,7 +7,7 @@ const getAll = (req, res, next) => {
     .then(books => res.json({ books: books }));
 };
 
-const newPost = (req, res, next) => {
+const newBook = (req, res, next) => {
   body = req.body;
   console.log(req.body.title.length);
   if (
@@ -22,11 +22,24 @@ const newPost = (req, res, next) => {
       .from("books")
       .insert(body)
       .returning("*")
-      .then(newBook => res.json({ newBook: newBook }));
+      .then(newBook => res.json({ newBook : newBook }));
   }
 };
 
+const deleteBook = (req, res, next) => {
+  id = parseInt(req.params.id)
+  console.log(id)
+
+  knex("books")
+    .where("id", id)
+    .delete()
+    .returning("*")
+    .then(deletedBook => res.json({ deletedBook : deletedBook}))
+
+}
+
 module.exports = {
   getAll,
-  newPost
+  newBook,
+  deleteBook
 };
