@@ -7,9 +7,9 @@ const detailRoutes = require('./routes/detailRoutes')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
-// app.get('/', (req, res) => {
-//   res.json('🍄')
-// })
+app.get('/', (req, res) => {
+  res.json('gReads')
+})
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
