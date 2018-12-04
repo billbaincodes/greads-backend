@@ -22,24 +22,37 @@ const newBook = (req, res, next) => {
       .from("books")
       .insert(body)
       .returning("*")
-      .then(newBook => res.json({ newBook : newBook[0] }));
+      .then(newBook => res.json({ newBook: newBook[0] }));
   }
 };
 
 const deleteBook = (req, res, next) => {
-  id = parseInt(req.params.id)
-  console.log(id)
+  id = parseInt(req.params.id);
+  console.log(id);
 
   knex("books")
     .where("id", id)
     .delete()
     .returning("*")
-    .then(deletedBook => res.json({ deletedBook : deletedBook[0]}))
+    .then(deletedBook => res.json({ deletedBook: deletedBook[0] }));
+};
 
-}
+const updateBook = (req, res, next) => {
+  id = parseInt(req.params.id);
+  body = req.body;
+
+  knex("books")
+    .where("id", id)
+    .update(body)
+    .returning("*")
+    .then(updatedBook => {
+      res.json({ updatedBook: updatedBook[0] });
+    });
+};
 
 module.exports = {
   getAll,
   newBook,
-  deleteBook
+  deleteBook,
+  updateBook
 };
