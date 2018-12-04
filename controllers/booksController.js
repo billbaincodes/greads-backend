@@ -4,6 +4,7 @@ const getAll = (req, res, next) => {
   knex
     .select("*")
     .from("books")
+    .orderBy('id', 'asc')
     .then(books => res.json({ books: books }));
 };
 
