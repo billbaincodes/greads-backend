@@ -7,6 +7,17 @@ const getAll = (req, res, next) => {
     .then(books => res.json({ books: books }));
 };
 
+const newPost = (req, res, next) => {
+  body = req.body
+  
+  knex
+    .from("books")
+    .insert(body)
+    .returning("*")
+    .then(newBook => res.json({ newBook: newBook }));
+};
+
 module.exports = {
-  getAll
+  getAll,
+  newPost
 };
