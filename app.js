@@ -19,6 +19,9 @@ app.use('/books', bookRoutes)
 app.use('/authors', authorRoutes)
 app.use('/details', detailRoutes)
 
+app.use(notFound)
+app.use(errorHandler)
+
 function notFound(err, req, res, next) {
 res.status(404).send({error: 'Not found!', status: 404, url: req.originalUrl})
 }
@@ -32,6 +35,5 @@ function errorHandler(err, req, res, next) {
     url: req.originalUrl 
   })
 }
-
 
 app.listen(port, () => {console.log(`Up on port ${port}`)})
