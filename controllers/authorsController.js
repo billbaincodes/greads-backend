@@ -7,6 +7,7 @@ const getAll = (req, res, next) => {
     .then(authors => res.json({ authors: authors }));
 };
 
+
 module.exports = {
   getAll
 };

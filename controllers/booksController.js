@@ -19,7 +19,7 @@ const getOne = (req, res, next) => {
 
 const newBook = (req, res, next) => {
   body = req.body;
-  console.log(req.body.title.length);
+
   if (
     req.body.title.length === 0 ||
     req.body.genre.length === 0 ||
@@ -38,7 +38,6 @@ const newBook = (req, res, next) => {
 
 const deleteBook = (req, res, next) => {
   id = parseInt(req.params.id);
-  console.log(id);
 
   knex("books")
     .where("id", id)
@@ -51,13 +50,22 @@ const updateBook = (req, res, next) => {
   id = parseInt(req.params.id);
   body = req.body;
 
-  knex("books")
-    .where("id", id)
-    .update(body)
-    .returning("*")
-    .then(updatedBook => {
-      res.json({ updatedBook: updatedBook[0] });
-    });
+  if (
+    req.body.title.length === 0 ||
+    req.body.genre.length === 0 ||
+    req.body.description.length === 0 ||
+    req.body.coverURL.length === 0
+  ) {
+    res.status(422).json("Invalid Input");
+  } else {
+    knex("books")
+      .where("id", id)
+      .update(body)
+      .returning("*")
+      .then(updatedBook => {
+        res.json({ updatedBook: updatedBook[0] });
+      });
+  }
 };
 
 module.exports = {
