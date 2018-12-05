@@ -18,7 +18,7 @@ const getBooksByAuthor = (req, res, next) => {
   id = req.params.id
 
   return knex
-    .select("books.title", "book.id", "authors.first", "authors.last")
+    .select("books.title", "books.id", "authors.first", "authors.last")
     .from("books")
     .innerJoin("books_authors", "books.id", "books_authors.book_id")
     .innerJoin("authors", "authors.id", "books_authors.author_id")
