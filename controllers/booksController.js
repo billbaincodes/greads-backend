@@ -4,8 +4,17 @@ const getAll = (req, res, next) => {
   knex
     .select("*")
     .from("books")
-    .orderBy('id', 'asc')
+    .orderBy("id", "asc")
     .then(books => res.json({ books: books }));
+};
+
+const getOne = (req, res, next) => {
+  id = req.params.id;
+
+  knex
+    .from("books")
+    .where("id", id)
+    .then(book => res.json({ book: book[0] }));
 };
 
 const newBook = (req, res, next) => {
@@ -53,6 +62,7 @@ const updateBook = (req, res, next) => {
 
 module.exports = {
   getAll,
+  getOne,
   newBook,
   deleteBook,
   updateBook
