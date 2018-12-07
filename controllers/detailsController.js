@@ -28,11 +28,30 @@ const getBooksByAuthor = (req, res, next) => {
         details: details
       });
     });
-
-
 }
+
+
+const getAuthorsOfBook = (req, res, next) => {
+  id = req.params.id
+
+  return knex
+    .select("authors.first", "authors.last", "books_authors.author_id", "books.title", "books_authors.book_id" )
+    .from("authors")
+    .innerJoin("books_authors", "authors.id", "books_authors.author_id")
+    .innerJoin("books", "books.id", "books_authors.book_id")
+    .where("books.id", id)
+    .then(details => {
+      res.json({
+        details: details
+      });
+    });
+}
+
+
+
 
 module.exports = {
   getAll,
-  getBooksByAuthor
+  getBooksByAuthor,
+  getAuthorsOfBook
 };

@@ -14,7 +14,9 @@ const getOne = (req, res, next) => {
   knex
     .from("books")
     .where("id", id)
-    .then(book => res.json({ book: book[0] }));
+    .then(book => 
+      res.json({ book: book[0] }
+        ));
 };
 
 const newBook = (req, res, next) => {
@@ -67,6 +69,15 @@ const updateBook = (req, res, next) => {
       });
   }
 };
+
+
+
+
+
+
+
+
+
 
 module.exports = {
   getAll,
